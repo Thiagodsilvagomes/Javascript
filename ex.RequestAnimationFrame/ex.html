@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Cruso de JS aula 39 Requestanimationframe</title>
+          <style>
+         #jogador{
+          
+          width:50px;
+          height:50px;
+          background-color: #00f;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+         }
+        </style>
+        
+        <script>
+         var jog;
+         var vel;
+         var dx;
+         var dy;
+         var px;
+         var py;
+         var anima;
+         var estado;
+
+         function inicia(){
+          vel=2;
+          dx=1;
+          dy=0;
+          px=0;
+          py=0;
+          jog=document.getElementById("jogador");
+          jog.addEventListener("click",function(){
+           if(estado){
+            estado=0
+             cancelAnimationFrame(anima);
+           }else{
+            estado=1;
+            anima = requestAnimationFrame(game);
+
+           }
+
+          })
+          
+          
+
+         }
+
+
+         function game(){
+          px+=(dx*vel);
+          py+=(dy*vel);
+          jog.style.left=px+"px";
+          jog.style.top=py+"px";
+          anima = requestAnimationFrame(game);
+          if(px > 800){
+           dx=-1;
+          }else if(px<0){
+           dx=1;
+          }         
+          
+          
+            }
+         
+          function parador(){
+           cancelAnimationFrame(anima);
+          }
+         
+         
+        window.addEventListener("load",inicia);
+        </script>
+    </head>
+    <body>
+      <div id="jogador" ></div>
+      <button id="ini" onclick="game()">Iniciar</button>
+      <button id="par" onclick="parador()">Parar</button>
+
+    </body>
+</html>  
